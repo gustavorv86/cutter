@@ -32,7 +32,14 @@ def argument_parser(command_line: list, flag_methods: dict):
 
 		filenames.append(filename)
 
-	if not filenames:
-		filenames.append(sys.stdin)
-
 	return flag_options, filenames
+
+
+def split_flag_arguments(flag_arguments: str):
+	char_separator = flag_arguments[0]
+
+	if char_separator != flag_arguments[-1]:
+		print('ERROR: invalid format "{}"'.format(flag_arguments), file=sys.stderr)
+		sys.exit(1)
+
+	return flag_arguments[1:-1].split(char_separator)

@@ -3,7 +3,9 @@ import os
 import sys
 
 NAME = "nfilter"
-HELP = '--' + NAME + '="TEXT"    Use TEXT to exclude lines.'
+HELP = """--nfilter="TEXT"
+		Use "TEXT" to exclude lines.
+"""
 
 
 def on_start(line: str, argument: str) -> str:

@@ -4,9 +4,10 @@ PROGNAME = "cutter"
 HELP_HEADER = """
 Usage: """ + PROGNAME + """ [OPTION]... [FILE]...
 Print lines search and manipulate text in each FILE or standard input.
-Example: """ + PROGNAME + """ --filter="Yes" --nfilter="No" --search-and-replace="foo","bar" --split=";" --format="{0}, {1}, {2}" inputfile.txt
+Example: """ + PROGNAME + """ --filter="Yes" --nfilter="No" --search-and-replace="foo","bar" --format="{0}, {1}, {2}" inputfile.txt
 
-Options:    """
+Options:
+"""
 
 
 def print_help(flag_modules: dict):

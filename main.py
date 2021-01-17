@@ -13,8 +13,23 @@ import os
 import sys
 
 import core.const as const
-import core.flags_loader as flags_loader
+import core.module_flags_loader as flags_loader
 import core.cmdparser as cmdparser
+
+
+def process_stream(stream, flag_methods: dict, flag_options: dict):
+	for line in stream.readlines():
+		line = line.replace("\r", "").replace("\n", "")
+		for option in flag_options:
+			flag_cmd = option[0]
+			flag_args = option[1]
+
+			line = flag_methods[flag_cmd].on_start(line, flag_args)
+			if not line:
+				break
+
+		if line:
+			print(line)
 
 
 def main(cmd_line: list):
@@ -23,7 +38,7 @@ def main(cmd_line: list):
 		for cmd in cmd_line:
 			print("DEBUG: argument line: {}".format(cmd), file=sys.stderr)
 
-	flag_methods = flags_loader.get_flags()
+	flag_methods = flags_loader.get_modules()
 
 	if not cmd_line or cmd_line[0] == "-h" or cmd_line[0] == "--help":
 		const.print_help(flag_methods)
@@ -31,20 +46,14 @@ def main(cmd_line: list):
 
 	flag_options, filenames = cmdparser.argument_parser(cmd_line, flag_methods)
 
-	for file in filenames:
-		fd = open(file, "r")
-		for line in fd.readlines():
-			line = line.replace("\r", "").replace("\n", "")
-			for option in flag_options:
-				flag_cmd = option[0]
-				flag_args = option[1]
+	if not filenames:
+		process_stream(sys.stdin, flag_methods, flag_options)
+	else:
 
-				line = flag_methods[flag_cmd].on_start(line, flag_args)
-				if not line:
-					break
-
-			if line:
-				print(line)
+		for file in filenames:
+			fd = open(file, "r")
+			process_stream(fd, flag_methods, flag_options)
+			fd.close()
 
 	sys.exit(0)
 

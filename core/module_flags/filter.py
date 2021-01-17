@@ -3,7 +3,9 @@ import os
 import sys
 
 NAME = "filter"
-HELP = '--' + NAME + '="TEXT"    Use TEXT to include lines.'
+HELP = """--filter="TEXT"
+		Use "TEXT" to include lines.
+"""
 
 
 def on_start(line: str, argument: str) -> str:
