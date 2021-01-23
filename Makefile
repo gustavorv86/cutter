@@ -39,7 +39,7 @@ uninstall:
 		rm -vf /usr/local/bin/cutter; \
 	elif [ -f /usr/bin/cutter ]; then \
 		rm -vf /usr/bin/cutter; \
-	elif [ -f /bin/cutter ]; then
+	elif [ -f /bin/cutter ]; then \
 		rm -vf /bin/cutter; \
 	else \
 		echo "ERROR: cannot install binary file."; \
@@ -47,4 +47,5 @@ uninstall:
 	fi
 	@echo "Done"
 	@exit 0
+
 
