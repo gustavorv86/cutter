@@ -3,7 +3,7 @@ import sys
 import core.debug as debug
 
 NAME = "format"
-HELP = """in:LIST --format="FORMAT out:STRING"
+HELP = """in:LIST --format="FORMAT" out:STRING
 		Use "FORMAT" to formatting line output. Use {N} to print N word LIST. 
 		Example: --format="{0}; {1}; {3}; {4}".
 """

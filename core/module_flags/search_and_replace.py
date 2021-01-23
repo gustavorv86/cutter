@@ -5,7 +5,7 @@ import core.cmdparser as cmdparser
 
 
 NAME = "search-and-replace"
-HELP = """in:STRING --search-and-replace="/SRCH/RPLC/ out:STRING"
+HELP = """in:STRING --search-and-replace="/SRCH/RPLC/" out:STRING
 		Search "SRCH" and replace by "RPLC" into the line.
 		Use "/" as a separator character.
 """
