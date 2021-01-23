@@ -22,7 +22,9 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-pyinstaller --name=%PROGNAME% --log-level=INFO --onefile --console main.py
+mkdir build 1> nul 2> nul
+cd build
+pyinstaller --name=%PROGNAME% --log-level=INFO --onefile --console ..\main.py
 
 echo.
 pause
