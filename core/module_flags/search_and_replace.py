@@ -1,34 +1,41 @@
 
-import os
 import sys
+import core.debug as debug
 import core.cmdparser as cmdparser
 
 
 NAME = "search-and-replace"
-HELP = """--search-and-replace="/SRCH/RPLC/"
+HELP = """in:STRING --search-and-replace="/SRCH/RPLC/ out:STRING"
 		Search "SRCH" and replace by "RPLC" into the line.
 		Use "/" as a separator character.
 """
 
 
+def _flag_function(line: str, search: str, replace: str) -> str:
+	if search == replace:
+		return line
+
+	output = line
+	while search in output:
+		output = output.replace(search, replace)
+
+	return output
+
+
 def on_start(line: str, argument: str) -> str:
-	if "__DEBUG__" in os.environ:
-		print("DEBUG: filter: {}".format(NAME), file=sys.stderr)
-		print("DEBUG: input: {}".format(line), file=sys.stderr)
+	debug.module(NAME)
+	debug.input(line)
+
+	if not isinstance(line, str):
+		print("ERROR: {} STRING input expected.".format(NAME), file=sys.stderr)
+		sys.exit(1)
 
 	array = cmdparser.split_flag_arguments(argument)
 	if len(array) < 2:
 		print("ERROR: {}, line:{}, argument:{}".format(NAME, line, argument))
 		sys.exit(1)
 
-	string_search = array[0]
-	string_replace = array[1]
+	output = _flag_function(line, array[0], array[1])
 
-	output_line = line
-	while string_search in line:
-		output_line = line.replace(string_search, string_replace)
-
-	if "__DEBUG__" in os.environ:
-		print("DEBUG: output: {}".format(output_line), file=sys.stderr)
-
-	return output_line
+	debug.output(output)
+	return output

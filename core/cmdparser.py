@@ -9,14 +9,16 @@ def argument_parser(command_line: list, flag_methods: dict):
 	filenames = list()
 
 	while command_line and command_line[0].startswith("--"):
-		command_option = command_line.pop(0)
+		command_option = command_line.pop(0)[2:]
 
-		array = command_option[2:].split("=")
-		flag_cmd = array[0]
-		if len(array) > 1:
-			flag_args = array[1]
+		if "=" not in command_option:
+			flag_cmd = command_option
+			flag_args = ""
+
 		else:
-			flag_args = None
+			eq = command_option.index("=")
+			flag_cmd = command_option[:eq]
+			flag_args = command_option[eq+1:]
 
 		if flag_cmd not in flag_methods:
 			print("ERROR: flag {} not recognized.".format(flag_cmd), file=sys.stderr)

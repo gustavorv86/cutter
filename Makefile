@@ -29,7 +29,20 @@ install:
 	else 
 		echo "ERROR: cannot install binary file."; \
 		exit 1; \
-	fi
+	fi \
 	echo "Done"
 	exit 0
 
+uninstall:
+	if [ -f /usr/local/bin/cutter ]; then \
+		rm -vf /usr/local/bin/cutter \
+	elif [ -f /usr/bin/cutter ]; then \
+		rm -vf /usr/bin/cutter \
+	elif [ -f /bin/cutter ]; then
+		rm -vf /bin/cutter \
+	else \
+		echo "ERROR: cannot install binary file."; \
+		exit 1; \
+	fi
+	echo "Done"
+	exit 0

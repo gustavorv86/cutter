@@ -1,6 +1,8 @@
 
 PROGNAME = "cutter"
 
+ENV_DEBUG = "CUTTER_DEBUG"
+
 HELP_HEADER = """
 Usage: """ + PROGNAME + """ [OPTION]... [FILE]...
 Print lines search and manipulate text in each FILE or standard input.

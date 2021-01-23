@@ -1,23 +1,29 @@
 
-import os
 import sys
+import core.debug as debug
 
 NAME = "filter"
-HELP = """--filter="TEXT"
-		Use "TEXT" to include lines.
+HELP = """in:STRING --filter="TEXT" out:STRING
+		Use TEXT to include lines.
 """
 
 
-def on_start(line: str, argument: str) -> str:
-	if "__DEBUG__" in os.environ:
-		print("DEBUG: filter: {}".format(NAME), file=sys.stderr)
-		print("DEBUG: input: {}".format(line), file=sys.stderr)
+def _flag_function(line: str, search: str) -> str:
+	if search in line:
+		return line
+	else:
+		return ""
 
-	output_line = None
-	if argument in line:
-		output_line = line
 
-	if "__DEBUG__" in os.environ:
-		print("DEBUG: output: {}".format(output_line), file=sys.stderr)
+def on_start(line: str, argument: str):
+	debug.module(NAME)
+	debug.input(line)
 
-	return output_line
+	if not isinstance(line, str):
+		print("ERROR: {} STRING input expected.".format(NAME), file=sys.stderr)
+		sys.exit(1)
+
+	output = _flag_function(line, argument)
+
+	debug.output(output)
+	return output
