@@ -32,7 +32,7 @@ def on_start(line: str, argument: str) -> str:
 
 	array = cmdparser.split_flag_arguments(argument)
 	if len(array) < 2:
-		print("ERROR: {}, line:{}, argument:{}".format(NAME, line, argument))
+		print("ERROR: {}, line:{}, argument:{}".format(NAME, line, argument), file=sys.stderr)
 		sys.exit(1)
 
 	output = _flag_function(line, array[0], array[1])
